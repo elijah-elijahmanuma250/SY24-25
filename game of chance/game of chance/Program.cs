@@ -1,3 +1,5 @@
+using GameOfChance;
+
 namespace game_of_chance
 {
     internal static class Program

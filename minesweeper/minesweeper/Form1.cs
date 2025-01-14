@@ -1,32 +1,74 @@
-namespace minesweeper
+using minesweeper;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MindSweeper
 {
     public partial class Form1 : Form
     {
-        Button[] btngrid=new Button[100];
+        Button[] btnGrid = new Button[100];
+        Tile[] tileGrid = new Tile[100];
         public Form1()
         {
             InitializeComponent();
-           /* btngrid[0] = button1;
-            btngrid[1] = button2;
-            btngrid[2] = button3;
-            btngrid[3] = button4;
-            btngrid[4] = button5;
-            btngrid[5] = button6;
-            btngrid[6] = button7;
-            btngrid[7] = button8;
-            btngrid[8] = button9;
-            btngrid[9] = button10; */
-            for (int i = 0; i < 100; i++)
-            {
-                btngrid[i] = (Button)Controls["button" + (i+1)];
-            }
-            for(int i = 0; i<100; i++)
-            {
-                btngrid[i].BackColor = Color.Green;
-            }
-            
+
+            Reset();
+
+        }
+        private Button getButton(int r, int c)
+        {
+            return (Button)getButton(r, c);
+        }
+        private int getIndex(Button b)
+        {
+            string tmp = b.Name.Substring(6);
+            int retVal = 0;
+            int.TryParse(tmp, out retVal);
+            return retVal - 1;
         }
 
-     
+
+
+        private void button101_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+        private void Button_MouseDown(object sender, MouseEventArgs e)
+        {
+            Button b = sender as Button;
+            Tile t = tileGrid[getIndex(b)];
+            t.SetFlag();
+        }
+
+        private void Resetbutton_Click(object sender, EventArgs e)
+        {
+            Reset();
+        }
+
+        private void Reset()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                btnGrid[i] = (Button)Controls["button" + (i + 1)];
+                tileGrid[i] = new Tile(btnGrid[i]);
+                tileGrid[i].SetFlagImage(FlagpictureBox.Image);
+                tileGrid[i].SetMineImage(MinepictureBox.Image);
+                tileGrid[i].SetMine(true);
+            }
+        }
     }
 }
